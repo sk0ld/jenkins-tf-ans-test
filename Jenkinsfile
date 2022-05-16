@@ -10,7 +10,8 @@ pipeline {
             steps {
               sh '''
               cp .terraformrc ~/
-              cp $TF_VARS . && rm -rf hosts.txt  
+              cp $TF_VARS . 
+              rm -rf hosts.txt tfplan 
               terraform init  
               terraform plan --out=tfplan
               terraform apply tfplan
