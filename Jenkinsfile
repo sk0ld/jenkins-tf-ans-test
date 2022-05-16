@@ -1,11 +1,16 @@
 pipeline {
     agent any
+    environment {
+        TF_VARS = "/home/pcadm/tech/wp.auto.tfvars"
+        PRIV_KEY = "/home/pcadm/.private_yc"
+        
+    }
     stages {
          stage ('Yandex Cloud infra preparation') {
             steps {
               sh '''
               cp .terraformrc ~/
-              cp /home/pcadm/tech/wp.auto.tfvars . && rm -rf hosts.txt  
+              cp $TF_VARS . && rm -rf hosts.txt  
               terraform init  
               terraform plan --out=tfplan
               terraform apply tfplan
@@ -16,7 +21,7 @@ pipeline {
              steps {
               sh '''
               cp ansible.cfg ~/ 
-              ansible-playbook dev-prod-docker.yml -i hosts.txt --private-key /home/pcadm/.private_yc --user pcadm -vv
+              ansible-playbook dev-prod-docker.yml -i hosts.txt --private-key $PRIV_KEY --user pcadm -vv
               '''
             }
         }  
