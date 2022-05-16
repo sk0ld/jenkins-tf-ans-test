@@ -11,3 +11,26 @@
         - python3-docker
        state: present
        update_cache: yes
+
+- name: build app
+  hosts: dev
+  become: yes
+
+  tasks:
+    - name: copy Dockerfile
+      copy:
+        src: ./dev/Dockerfile
+        dest: /home/pcadm/Dockerfile
+     
+    - name: copy s3cfg
+      copy:
+        src: /home/pcadm/.s3cfg
+        dest: /home/pcadm/.s3cfg
+       
+    - name: Build dev image
+      docker_image:
+        build:
+          path: /home/pcadm/
+        name: dev-mvn-alpine  
+        source: build
+      delegate_to: dev        
