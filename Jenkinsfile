@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage ('Yandex Cloud infra preparation') {
+         stage ('Yandex Cloud infra preparation') {
             steps {
               sh '''
               cp .terraformrc ~/
@@ -14,21 +14,20 @@ pipeline {
         }  
          stage ('Ansible playbook') {
              steps {
-               sh '''
-               cp ansible.cfg ~/ 
-               ansible-playbook dev-prod-docker.yml -i hosts.txt --private-key /home/pcadm/.private_yc --user pcadm -vv
-               '''
-             }
-         }  
+              sh '''
+              cp ansible.cfg ~/ 
+              ansible-playbook dev-prod-docker.yml -i hosts.txt --private-key /home/pcadm/.private_yc --user pcadm -vv
+              '''
+            }
+        }  
 
          stage ('Yandex Cloud infra remove') {
             steps {
-               sh '''
-               sleep 2m
-               terraform destroy --auto-approve
-               '''
-             }
-    }
-}
-
+              sh '''
+              sleep 2m
+              terraform destroy --auto-approve
+              '''
+            }
+        }
+  }
 }
