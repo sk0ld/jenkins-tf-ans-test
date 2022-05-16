@@ -1,0 +1,13 @@
+---
+- name: install docker
+  hosts: dev,prod
+  become: yes
+
+  tasks:
+   - name: install packages
+     apt:
+       name:
+        - docker.io
+        - python3-docker
+       state: present
+       update_cache: yes
