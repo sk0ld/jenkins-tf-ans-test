@@ -42,6 +42,18 @@ locals {
     zone      = local.zone
   }
   
+resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
+  service_account_id = var.sa_id
+  description        = "static access key for object storage"
+}
+
+resource "yandex_storage_bucket" "tf-bucket-yc" {
+  access_key = yandex_iam_service_account_static_access_key.sa-static-key.access_key
+  secret_key = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
+  bucket = local.bucket_name
+}
+
+
   resource "yandex_vpc_network" "network-1" {
     name = "network1"
   }
