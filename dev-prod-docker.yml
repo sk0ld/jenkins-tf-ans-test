@@ -101,4 +101,5 @@
        repository: cr.yandex/crp12ct5a0klh8dah1hc
        tag: latest
        push: yes
+       source: local
      delegate_to: "{{ groups.prod[0] }}"               
