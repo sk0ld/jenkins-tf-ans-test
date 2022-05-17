@@ -54,13 +54,6 @@ resource "yandex_storage_bucket" "tf-bucket-yc" {
   bucket = local.bucket_name
 }
 
-resource "yandex_container_registry" "tf-reg-yc" {
-  name = "tf-reg-yc"
-  folder_id = "var.folder_id"
-  labels = {
-    my-label = "yc-custom-label"
-  }
-}
 
   resource "yandex_vpc_network" "network-1" {
     name = "network1"
