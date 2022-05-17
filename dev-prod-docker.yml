@@ -25,4 +25,16 @@
    - name: copy s3cfg
      copy:
        src: /home/pcadm/.s3cfg
-       dest: /home/pcadm/.s3cfg       
+       dest: /home/pcadm/.s3cfg
+
+   - name: Build dev image
+     docker_image:
+       build:
+       path: /home/pcadm/
+       name: dev-mvn-alpine  
+       source: build
+     delegate_to: "{{ item }}"
+     delegate_facts: true
+     loop: "{{ groups['dev'] }}"  
+     
+              
