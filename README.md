@@ -20,7 +20,7 @@ You will see boxfuse web app
 Preparation:
 ------------
 
-On Master server:
+On main server:
 ------------
 
 Install jenkins (with git plugin), terraform, ansible, git
@@ -41,12 +41,13 @@ chmod 0600 key.json .private_yc .s3cfg
 chown jenkins:root  key.json .private_yc .s3cfg
 ```
 
-ssh keys and additial configs:
+ssh keys and additional configs:
 -----------------------------
 
-Generate and put private ssh key for your VMs here:
+Generate and put private and public (used inside meta.txt) ssh keys for your VMs here:
 ```
 /home/your_user/.private_yc
+/home/your_user/.public_yc
 ```
 
 To create user metadata (for example for user pcadm):

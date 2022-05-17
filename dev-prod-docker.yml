@@ -22,7 +22,7 @@
        src: ./dev/Dockerfile
        dest: /home/pcadm/Dockerfile
      
-   - name: Copy s3cfg
+   - name: Copy .s3cfg
      copy:
        src: /home/pcadm/.s3cfg
        dest: /home/pcadm/.s3cfg
