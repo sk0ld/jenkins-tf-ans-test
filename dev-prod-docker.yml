@@ -83,13 +83,13 @@
    - name: copy registry key
      copy:
        src: /home/pcadm/key.json
-       dest: /root/key.json  
+       dest: ~/key.json  
 
 
    - name: login to YC registry
      docker_login:
        registry: cr.yandex
        username: pcadm
-       password: "{{ lookup('file', 'key.json') }}"
+       password: " {{ lookup('file', 'key.json')}}"
        reauthorize: yes
      delegate_to: "{{ groups.prod[0] }}"              
