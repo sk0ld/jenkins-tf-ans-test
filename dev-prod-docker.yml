@@ -83,7 +83,7 @@
    - name: copy registry key
      copy:
        src: /home/pcadm/key.json
-       dest: ~/key.json  
+       dest: /home/pcadm/key.json  
 
 
    - name: login to YC registry
