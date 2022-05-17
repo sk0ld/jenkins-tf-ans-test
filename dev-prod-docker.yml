@@ -90,6 +90,6 @@
      docker_login:
        registry: cr.yandex
        username: pcadm
-       password: " {{ lookup('file', 'key.json')}}"
+       password: " {{ lookup('file', '/home/pcadm/key.json')}}"
        reauthorize: yes
      delegate_to: "{{ groups.prod[0] }}"              
