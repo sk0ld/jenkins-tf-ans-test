@@ -14,7 +14,6 @@ pipeline {
               rm -rf tfplan 
               terraform init  
               terraform plan --out=tfplan
-              rm -rf hosts.txt
               terraform apply tfplan
               '''
             }
