@@ -73,5 +73,22 @@
    - name: delete bucket content
      shell:
        s3cmd rm s3://tf-bucket-yc --force --recursive
-     
-              
+
+
+- name: publish prod image
+  hosts: prod
+  become: yes
+ 
+  tasks:
+   - name: copy registry key
+     copy:
+       src: /home/pcadm/key.json
+       dest: /root/key.json  
+
+
+   - name: login to YC registry
+     docker_login:
+       registry: cr.yandex
+       username: json_key
+       password: "{{ lookup('file', 'key.json') }}"
+       reauthorize: yes            
