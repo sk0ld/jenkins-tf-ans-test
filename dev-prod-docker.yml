@@ -1,10 +1,10 @@
 ---
-- name: install docker
+- name: Install docker components
   hosts: dev,prod
   become: yes
 
   tasks:
-   - name: install packages
+   - name: Install packages
      apt:
        name:
         - docker.io
@@ -12,17 +12,17 @@
        state: present
        update_cache: yes
 
-- name: build dev image
+- name: Build dev image
   hosts: dev
   become: yes
 
   tasks:
-   - name: copy dev Dockerfile
+   - name: Copy dev Dockerfile
      copy:
        src: ./dev/Dockerfile
        dest: /home/pcadm/Dockerfile
      
-   - name: copy s3cfg
+   - name: Copy s3cfg
      copy:
        src: /home/pcadm/.s3cfg
        dest: /home/pcadm/.s3cfg
@@ -36,31 +36,31 @@
      delegate_to: "{{ groups.dev[0] }}" 
 
 
-- name: build prod image
+- name: Build prod image
   hosts: prod
   become: yes
   vars:
     image_version: 1.0.0
 
   tasks:
-   - name: install s3cmd
+   - name: Install s3cmd
      apt:
        name:
         - s3cmd
        state: present
        update_cache: yes
 
-   - name: copy prod Dockerfile
+   - name: Copy prod Dockerfile
      copy:
        src: ./prod/Dockerfile
        dest: /home/pcadm/Dockerfile
      
-   - name: copy s3cfg
+   - name: Copy .s3cfg
      copy:
        src: /home/pcadm/.s3cfg
        dest: /root/.s3cfg
 
-   - name: download war file
+   - name: Download war file
      shell:
        s3cmd get s3://tf-bucket-yc/hello-1.0.war hello-1.0.war 
 
@@ -73,12 +73,12 @@
        source: build
      delegate_to: "{{ groups.prod[0] }}" 
 
-   - name: delete bucket content
+   - name: Delete bucket content
      shell:
        s3cmd rm s3://tf-bucket-yc --force --recursive
 
 
-- name: publish prod image
+- name: Publish prod image & run image for stage
   hosts: prod
   become: yes
   vars:
@@ -86,12 +86,12 @@
     reg_key: /home/pcadm/key.json
  
   tasks:
-   - name: copy registry key
+   - name: Copy registry key
      copy:
        src: "{{ reg_key }}" 
        dest: "{{ reg_key }}"  
 
-   - name: login to YC registry
+   - name: Login to YC registry
      docker_login:
        registry: cr.yandex
        username: json_key
@@ -99,7 +99,7 @@
        reauthorize: yes
      delegate_to: "{{ groups.prod[0] }}"
 
-   - name: publish to YC registry
+   - name: Publish to YC registry
      docker_image:
        name: prod-tomcat-alpine
        repository: "{{ reg_image }}"
@@ -108,7 +108,7 @@
        source: local
      delegate_to: "{{ groups.prod[0] }}"  
 
-   - name: pull image from YC registry
+   - name: Pull image from YC registry to stage
      docker_container:
        name: boxfuse-tomcat
        image: "{{ reg_image }}:{{ image_version }}" 
