@@ -36,7 +36,7 @@
      delegate_to: "{{ groups.dev[0] }}" 
 
 
-- name: Build prod image
+- name: Prod image activities
   hosts: prod
   become: yes
   vars:
