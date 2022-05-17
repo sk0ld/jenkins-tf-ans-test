@@ -27,7 +27,7 @@ pipeline {
          stage ('Yandex Cloud infra remove') {
             steps {
               sh '''
-              sleep 3m
+              sleep 10m
               terraform destroy --auto-approve
               '''
             }
