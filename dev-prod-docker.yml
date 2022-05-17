@@ -69,5 +69,9 @@
        name: prod-tomcat-alpine  
        source: build
      delegate_to: "{{ groups.prod[0] }}" 
+
+   - name: delete bucket content
+     shell:
+       s3cmd rm s3://tf-bucket-yc --force --recursive
      
               
