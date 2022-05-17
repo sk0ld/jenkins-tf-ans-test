@@ -10,7 +10,7 @@ pipeline {
               sh '''
               cp .terraformrc ~/
               cp $TF_VARS .
-              terraform init --reconfigure
+              terraform init
               terraform plan 
               terraform apply --auto-approve
               '''
