@@ -10,9 +10,7 @@ pipeline {
               sh '''
               cp .terraformrc ~/
               cp $TF_VARS .
-              terraform refresh 
-              terraform init 
-              terraform plan
+              terraform init --reconfigure 
               terraform apply --auto-approve
               '''
             }
