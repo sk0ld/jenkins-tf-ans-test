@@ -85,7 +85,6 @@
        src: /home/pcadm/key.json
        dest: /home/pcadm/key.json  
 
-
    - name: login to YC registry
      docker_login:
        registry: cr.yandex
@@ -93,7 +92,6 @@
        password: " {{ lookup('file', '/home/pcadm/key.json')}}"
        reauthorize: yes
      delegate_to: "{{ groups.prod[0] }}"
-
 
    - name: publish to YC registry
      docker_image:
