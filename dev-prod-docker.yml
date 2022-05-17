@@ -81,18 +81,20 @@
 - name: publish prod image
   hosts: prod
   become: yes
+  vars:
+    reg_key: /home/pcadm/key.json
  
   tasks:
    - name: copy registry key
      copy:
-       src: /home/pcadm/key.json
-       dest: /home/pcadm/key.json  
+       src: "{{reg_key}}" 
+       dest: "{{reg_key}}"  
 
    - name: login to YC registry
      docker_login:
        registry: cr.yandex
        username: json_key
-       password: " {{ lookup('file', '/home/pcadm/key.json')}}"
+       password: " {{ lookup('file', '{{reg_key}}')}}"
        reauthorize: yes
      delegate_to: "{{ groups.prod[0] }}"
 
