@@ -89,7 +89,7 @@
    - name: login to YC registry
      docker_login:
        registry: cr.yandex
-       username: json_key
+       username: pcadm
        password: "{{ lookup('file', 'key.json') }}"
        reauthorize: yes
      delegate_to: "{{ groups.prod[0] }}"              
