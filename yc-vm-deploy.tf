@@ -72,7 +72,7 @@ resource "yandex_storage_bucket" "tf-bucket-yc" {
     resources {
       cores  = 2
       memory = 2
-      core_fraction = 20
+      core_fraction = 100
     }
   
     boot_disk {
@@ -113,7 +113,7 @@ resource "yandex_storage_bucket" "tf-bucket-yc" {
     resources {
       cores  = 2
       memory = 2
-      core_fraction = 20
+      core_fraction = 100
     }
   
     boot_disk {
