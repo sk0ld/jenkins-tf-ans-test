@@ -2,7 +2,6 @@ pipeline {
     agent any
     environment {
         TF_VARS = "/home/pcadm/tech/wp.auto.tfvars"
-        PRIV_KEY = "/home/pcadm/.private_yc"
         
     }
     stages {
@@ -21,7 +20,7 @@ pipeline {
          stage ('Ansible playbook') {
              steps {
               sh '''
-              ansible-playbook dev-prod-docker.yml -i hosts.txt --private-key $PRIV_KEY --user pcadm -vv
+              ansible-playbook dev-prod-docker.yml -i hosts.txt -vv
               '''
             }
         }  
@@ -29,7 +28,7 @@ pipeline {
          stage ('Yandex Cloud infra remove') {
             steps {
               sh '''
-              sleep 1m
+              sleep 3m
               terraform destroy --auto-approve
               '''
             }
