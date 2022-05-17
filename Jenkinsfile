@@ -10,10 +10,9 @@ pipeline {
               sh '''
               cp .terraformrc ~/
               cp $TF_VARS . 
-              rm -rf tfplan 
               terraform init  
-              terraform plan --out=tfplan
-              terraform apply tfplan
+              terraform plan
+              terraform apply --auto-approve
               '''
             }
         }  
