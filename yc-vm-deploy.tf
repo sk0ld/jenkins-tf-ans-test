@@ -60,7 +60,7 @@ resource "yandex_storage_bucket" "tf-bucket-yc" {
   }
   resource "yandex_vpc_subnet" "subnet-1" {
     name           = "subnet1"
-    zone           = "ru-central1-b"
+    zone           = local.zone
     network_id     = yandex_vpc_network.network-1.id
     v4_cidr_blocks = ["10.129.0.0/24"]
   }
