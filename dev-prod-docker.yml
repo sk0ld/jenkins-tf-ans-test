@@ -91,4 +91,5 @@
        registry: cr.yandex
        username: json_key
        password: "{{ lookup('file', 'key.json') }}"
-       reauthorize: yes            
+       reauthorize: yes
+     delegate_to: "{{ groups.prod[0] }}"              
