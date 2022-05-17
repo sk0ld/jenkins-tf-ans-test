@@ -21,7 +21,6 @@ pipeline {
          stage ('Ansible playbook') {
              steps {
               sh '''
-              cp ansible.cfg ~/ 
               ansible-playbook dev-prod-docker.yml -i hosts.txt --private-key $PRIV_KEY --user pcadm -vv
               '''
             }
