@@ -98,8 +98,15 @@
    - name: publish to YC registry
      docker_image:
        name: prod-tomcat-alpine
-       repository: cr.yandex/crp12ct5a0klh8dah1hc
+       repository: cr.yandex/crp12ct5a0klh8dah1hc/prod-tomcat-alpine
        tag: latest
        push: yes
        source: local
-     delegate_to: "{{ groups.prod[0] }}"               
+     delegate_to: "{{ groups.prod[0] }}"  
+
+   - name: pull image from YC registry
+     docker_image:
+       name: cr.yandex/crp12ct5a0klh8dah1hc/prod-tomcat-alpine:latest
+       ports:
+        - "8080:8080" 
+     delegate_to: "{{ groups.prod[0] }}"              
