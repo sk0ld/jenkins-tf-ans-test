@@ -105,7 +105,7 @@
      delegate_to: "{{ groups.prod[0] }}"  
 
    - name: pull image from YC registry
-     docker_image:
+     docker_container:
        name: cr.yandex/crp12ct5a0klh8dah1hc/prod-tomcat-alpine:latest
        ports:
         - "8080:8080" 
