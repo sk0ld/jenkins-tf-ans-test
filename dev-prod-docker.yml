@@ -30,7 +30,7 @@
    - name: Build dev image
      docker_image:
        build:
-       path: /home/pcadm/
+         path: /home/pcadm/
        name: dev-mvn-alpine  
        source: build
      delegate_to: "{{ groups.dev[0] }}" 
