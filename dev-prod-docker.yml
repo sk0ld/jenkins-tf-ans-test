@@ -12,12 +12,12 @@
        state: present
        update_cache: yes
 
-- name: build app
+- name: build dev image
   hosts: dev
   become: yes
 
   tasks:
-   - name: copy Dockerfile
+   - name: copy dev Dockerfile
      copy:
        src: ./dev/Dockerfile
        dest: /home/pcadm/Dockerfile
@@ -34,5 +34,40 @@
        name: dev-mvn-alpine  
        source: build
      delegate_to: "{{ groups.dev[0] }}" 
+
+
+- name: build prod image
+  hosts: prod
+  become: yes
+
+  tasks:
+   - name: install s3cmd
+     apt:
+       name:
+        - s3cmd
+       state: present
+       update_cache: yes
+
+   - name: copy prod Dockerfile
+     copy:
+       src: ./prod/Dockerfile
+       dest: /home/pcadm/Dockerfile
+     
+   - name: copy s3cfg
+     copy:
+       src: /home/pcadm/.s3cfg
+       dest: /home/pcadm/.s3cfg
+
+   - name: download war file
+     shell:
+       s3cmd get s3://tf-bucket-yc/hello-1.0.war hello-1.0.war 
+
+   - name: Build prod image
+     docker_image:
+       build:
+         path: /home/pcadm/
+       name: prod-tomcat-alpine  
+       source: build
+     delegate_to: "{{ groups.prod[0] }}" 
      
               
