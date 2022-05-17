@@ -69,7 +69,7 @@
        build:
          path: /home/pcadm/
        name: prod-tomcat-alpine
-       tag: "{{image_version}}"  
+       tag: "{{ image_version }}"  
        source: build
      delegate_to: "{{ groups.prod[0] }}" 
 
@@ -87,14 +87,14 @@
   tasks:
    - name: copy registry key
      copy:
-       src: "{{reg_key}}" 
-       dest: "{{reg_key}}"  
+       src: "{{ reg_key }}" 
+       dest: "{{ reg_key }}"  
 
    - name: login to YC registry
      docker_login:
        registry: cr.yandex
        username: json_key
-       password: " {{ lookup('file', '{{reg_key}}')}}"
+       password: " {{ lookup('file', '{{ reg_key }}')}}"
        reauthorize: yes
      delegate_to: "{{ groups.prod[0] }}"
 
@@ -102,7 +102,7 @@
      docker_image:
        name: prod-tomcat-alpine
        repository: cr.yandex/crp12ct5a0klh8dah1hc/prod-tomcat-alpine
-       tag: "{{image_version}}" 
+       tag: "{{ image_version }}" 
        push: yes
        source: local
      delegate_to: "{{ groups.prod[0] }}"  
@@ -110,7 +110,7 @@
    - name: pull image from YC registry
      docker_container:
        name: boxfuse-tomcat
-       image: cr.yandex/crp12ct5a0klh8dah1hc/prod-tomcat-alpine:"{{image_version}}" 
+       image: cr.yandex/crp12ct5a0klh8dah1hc/prod-tomcat-alpine:"{{ image_version }}" 
        ports:
         - "8080:8080" 
      delegate_to: "{{ groups.prod[0] }}"              
