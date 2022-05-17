@@ -56,7 +56,7 @@
    - name: copy s3cfg
      copy:
        src: /home/pcadm/.s3cfg
-       dest: /home/pcadm/.s3cfg
+       dest: /root/.s3cfg
 
    - name: download war file
      shell:
