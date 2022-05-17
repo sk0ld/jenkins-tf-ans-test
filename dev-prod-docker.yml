@@ -33,8 +33,6 @@
        path: /home/pcadm/
        name: dev-mvn-alpine  
        source: build
-     delegate_to: "{{ item }}"
-     delegate_facts: true
-     loop: "{{ groups['dev'] }}"  
+     delegate_to: "{{ dev | first }}"
      
               
