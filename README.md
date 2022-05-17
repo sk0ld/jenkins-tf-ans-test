@@ -1,4 +1,4 @@
-Demo of usage Jenkins/Terraform/Ansible with yandex cloud
+Demo of usage Jenkins/Terraform/Ansible/Docker with Yandex Cloud
 =========
 
 Short info
