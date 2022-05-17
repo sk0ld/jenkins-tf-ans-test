@@ -5,4 +5,4 @@ WORKDIR /usr/share/app-src
 RUN git clone https://github.com/boxfuse/boxfuse-sample-java-war-hello.git ./
 RUN  mvn package
 ADD .s3cfg /root/
-RUN s3cmd --storage-class COLD put s3://tf-bucket-yc/hello-1.0.war
+RUN s3cmd --storage-class COLD put ./target/hello-1.0.war s3://tf-bucket-yc/hello-1.0.war
