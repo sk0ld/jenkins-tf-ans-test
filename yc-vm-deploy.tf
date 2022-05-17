@@ -154,10 +154,20 @@ resource "yandex_storage_bucket" "tf-bucket-yc" {
         value = local.pub_ip_vm2
       }
 
-    resource "null_resource" "ansible_hosts" {
-  provisioner "local-exec" {
-          command = "echo '[dev]\n${local.pub_ip_vm1}\n\n[prod]\n${local.pub_ip_vm2}' > hosts.txt"
-  }
-    }
 
-                               
+
+ 
+    resource "local_file" "inventory" {
+    filename = "./hosts.txt"
+    content     = <<_EOF
+    [dev]
+    ${local.pub_ip_vm1}
+
+
+    [prod]
+    ${local.pub_ip_vm2}
+
+
+    EOF
+}
+  
