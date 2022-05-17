@@ -6,12 +6,12 @@ Short info
 
 Tested on Ubuntu 20.04
 
-Terraform and Ansible scenarios create instances (Ubuntu 20.04 LTS) on YC:
+Terraform and Ansible scenarios to create instances (Ubuntu 20.04 LTS) on YC:
 
 1) Jenkins to start the job and enter image tag (1.0.0 by default)
-1) Terraform for creation: 2 VMs (vm-dev and vm-prod), s3-bucket storage
+1) Terraform for creation: 2 VMs (vm1 (vm-dev) for dev and vm2 (vm-prod) for prod and stage), s3-bucket storage
 2) Ansible : to deploy docker, build docker image to get artifact (war) and share it to s3-bucket
-3) Ansible: to build prod image, push image to registry and pull image for staging
+3) Ansible: to build prod image, push image to Yandex Cloud docker registry and pull image for staging
 
 After the deployment you will get public ip addresses of VM instances.
 Follow http://vm-prod-public-ip:8080/hello-1.0
@@ -20,7 +20,7 @@ You will see boxfuse web app
 Preparation:
 ------------
 
-On master server:
+On Master server:
 ------------
 
 Install jenkins (with git plugin), terraform, ansible, git
