@@ -10,8 +10,8 @@ pipeline {
               sh '''
               cp .terraformrc ~/
               cp $TF_VARS . 
-              terraform init
-              rm -rf hosts.txt  
+              rm -rf hosts.txt 
+              terraform init 
               terraform plan
               terraform apply --auto-approve
               '''
