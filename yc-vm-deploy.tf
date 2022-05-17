@@ -30,7 +30,7 @@ terraform {
   
 locals {
     image_id = "fd8sc0f4358r8pt128gg"
-    zone = "ru-central1-a"
+    zone = "ru-central1-b"
     user_name = "pcadm"
     bucket_name = "tf-bucket-yc"
     pub_ip_vm1 = yandex_compute_instance.vm1.network_interface.0.nat_ip_address
