@@ -39,6 +39,8 @@
 - name: build prod image
   hosts: prod
   become: yes
+  vars:
+    image_version: 1.0.0
 
   tasks:
    - name: install s3cmd
@@ -66,7 +68,8 @@
      docker_image:
        build:
          path: /home/pcadm/
-       name: prod-tomcat-alpine  
+       name: prod-tomcat-alpine
+       tag: "{{image_version}}"  
        source: build
      delegate_to: "{{ groups.prod[0] }}" 
 
@@ -97,7 +100,7 @@
      docker_image:
        name: prod-tomcat-alpine
        repository: cr.yandex/crp12ct5a0klh8dah1hc/prod-tomcat-alpine
-       tag: latest
+       tag: "{{image_version}}" 
        push: yes
        source: local
      delegate_to: "{{ groups.prod[0] }}"  
@@ -105,7 +108,7 @@
    - name: pull image from YC registry
      docker_container:
        name: boxfuse-tomcat
-       image: cr.yandex/crp12ct5a0klh8dah1hc/prod-tomcat-alpine:latest
+       image: cr.yandex/crp12ct5a0klh8dah1hc/prod-tomcat-alpine:"{{image_version}}" 
        ports:
         - "8080:8080" 
      delegate_to: "{{ groups.prod[0] }}"              

@@ -19,7 +19,7 @@ pipeline {
          stage ('Ansible playbook') {
              steps {
               sh '''
-              ansible-playbook dev-prod-docker.yml -i hosts.txt -vv
+              ansible-playbook dev-prod-docker.yml -i hosts.txt --extra-vars image_version=$image_version -vv
               '''
             }
         }  
