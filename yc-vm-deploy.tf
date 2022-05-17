@@ -110,13 +110,13 @@ resource "yandex_storage_bucket" "tf-bucket-yc" {
     name        = "vm-prod"
     allow_stopping_for_update = true
   
-    resources {
-      cores  = 2
-      memory = 2
-      core_fraction = 100
+      resources {
+         cores  = 2
+         memory = 2
+         core_fraction = 100
     }
   
-    boot_disk {
+      boot_disk {
       initialize_params {
         image_id = local.image_id
         type     = "network-ssd"
@@ -124,7 +124,7 @@ resource "yandex_storage_bucket" "tf-bucket-yc" {
      }
     }
 
-    network_interface {
+      network_interface {
         subnet_id = "${yandex_vpc_subnet.subnet-1.id}"
         nat = true
       }
@@ -154,8 +154,8 @@ resource "yandex_storage_bucket" "tf-bucket-yc" {
         value = local.pub_ip_vm2
       }
 
-     resource "null_resource" "ansible_hosts" {
-  provisioner "local-exec" {
+    resource "null_resource" "ansible_hosts" {
+    provisioner "local-exec" {
           command = "echo '[dev]\n${local.pub_ip_vm1}\n\n[prod]\n${local.pub_ip_vm2}' > hosts.txt"
-  }
-    }
+   }
+     }
