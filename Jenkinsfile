@@ -11,9 +11,10 @@ pipeline {
               sh '''
               cp .terraformrc ~/
               cp $TF_VARS . 
-              rm -rf hosts.txt tfplan 
+              rm -rf tfplan 
               terraform init  
               terraform plan --out=tfplan
+              rm -rf hosts.txt
               terraform apply tfplan
               '''
             }
@@ -29,7 +30,7 @@ pipeline {
          stage ('Yandex Cloud infra remove') {
             steps {
               sh '''
-              sleep 2m
+              sleep 1m
               terraform destroy --auto-approve
               '''
             }
