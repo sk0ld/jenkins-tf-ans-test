@@ -157,5 +157,5 @@ resource "yandex_storage_bucket" "tf-bucket-yc" {
     resource "null_resource" "ansible_hosts" {
     provisioner "local-exec" {
           command = "echo '[dev]\n${local.pub_ip_vm1}\n\n[prod]\n${local.pub_ip_vm2}' > hosts.txt"
-   }
-     }
+       }
+    }
