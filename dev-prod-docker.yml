@@ -95,7 +95,7 @@
      docker_login:
        registry: cr.yandex
        username: json_key
-       password: "{{ lookup('file', '{{ reg_key }}')}}"
+       password: " {{ lookup('file', '{{ reg_key }}')}}"
        reauthorize: yes
      delegate_to: "{{ groups.prod[0] }}"
 
