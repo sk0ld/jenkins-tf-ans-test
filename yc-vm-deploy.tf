@@ -32,7 +32,7 @@ locals {
     image_id = "fd8sc0f4358r8pt128gg"
     zone = "ru-central1-b"
     user_name = "pcadm"
-    bucket_name = "tf-bucket-yc"
+    bucket_name = "tf-bucket-yc2"
     pub_ip_vm1 = yandex_compute_instance.vm1.network_interface.0.nat_ip_address
     pub_ip_vm2 = yandex_compute_instance.vm2.network_interface.0.nat_ip_address
   }
@@ -48,7 +48,7 @@ resource "yandex_iam_service_account_static_access_key" "sa-static-key" {
   description        = "static access key for object storage"
 }
 
-resource "yandex_storage_bucket" "tf-bucket-yc" {
+resource "yandex_storage_bucket" "tf-bucket-yc2" {
   access_key = yandex_iam_service_account_static_access_key.sa-static-key.access_key
   secret_key = yandex_iam_service_account_static_access_key.sa-static-key.secret_key
   bucket = local.bucket_name
