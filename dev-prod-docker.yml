@@ -62,7 +62,7 @@
 
    - name: Download war file
      shell:
-       s3cmd get s3://tf-bucket-yc/hello-1.0.war hello-1.0.war 
+       s3cmd get s3://tf-bucket-yc2/hello-1.0.war hello-1.0.war 
 
    - name: Build prod image
      docker_image:
@@ -75,7 +75,7 @@
 
    - name: Delete bucket content
      shell:
-       s3cmd rm s3://tf-bucket-yc --force --recursive
+       s3cmd rm s3://tf-bucket-yc2 --force --recursive
 
 
 - name: Publish prod image & run image for stage
